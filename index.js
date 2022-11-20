@@ -29,7 +29,7 @@ module.exports = function(strings, ...exps) {
 
     // Push current string, pluralizing if we have a valid quantity
     if (qty) {
-      result.push(s.replace(/\[([^|]*)\|([^\]]*)\]/g, qty[0] == 1 ? '$1' : '$2'));
+      result.push(s.replace(/\[([^|]*)\|([^\]]*)\]/g, qty[0] <= 1 ? '$1' : '$2'));
     } else {
       result.push(s);
     }
