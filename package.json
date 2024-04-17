@@ -1,17 +1,20 @@
 {
   "name": "simplur",
+  "type": "module",
   "version": "3.0.1",
   "description": "Simple, versatile string pluralization",
-  "main": "index.js",
-  "types": "index.d.ts",
-  "files": [
-    "index.d.ts"
-  ],
+  "main": "./dist/simplur.js",
+  "exports": {
+    ".": "./dist/simplur.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "prepare": "npm test && runmd --output=README.md README_js.md",
-    "md": "runmd --watch --output=README.md README_js.md",
-    "test": "mocha test/test.js",
-    "generate:types": "npx typescript index.js --declaration --allowJs --emitDeclarationOnly --outDir ."
+    "build": "npx --yes --package=typescript tsc",
+    "build:watch": "npx --yes tsc-watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build && npm test",
+    "test": "node --test",
+    "test:watch": "node --test --watch "
   },
   "repository": {
     "type": "git",
@@ -25,10 +28,14 @@
     "inflection",
     "inflector"
   ],
-  "author": "",
+  "author": {
+    "name": "Robert Kieffer",
+    "url": "http://github.com/broofa",
+    "email": "robert@broofa.com"
+  },
   "license": "ISC",
+  "packageManager": "npm@10.5.2+sha256.df0a1f7691654b94786013e5d5b80a873a7ffbae9c82c3bec8b5db76bc3b7dfd",
   "devDependencies": {
-    "mocha": "8.1.3",
-    "runmd": "1.3.2"
+    "@types/node": "20.12.7"
   }
 }

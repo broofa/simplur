@@ -1,5 +1,7 @@
-const assert = require('assert');
-const simplur = require('..');
+import { describe, it } from 'node:test';
+
+import assert from 'assert';
+import simplur from './simplur.js';
 
 describe('simplur', () => {
   it('ignores tokens when no numeric quantity is in scope', () => {
@@ -34,12 +36,16 @@ describe('simplur', () => {
   });
 
   it('supports custom quantity function', () => {
-    function formatQuantity(val) {
-      return val < 1 ? 'no' :
-        val == 1 ? 'one' :
-        val == 2 ? 'both' :
-        val == 3 ? null :
-        val;
+    function formatQuantity(val: number) {
+      return val < 1
+        ? 'no'
+        : val == 1
+        ? 'one'
+        : val == 2
+        ? 'both'
+        : val == 3
+        ? null
+        : val;
     }
 
     assert.equal(simplur`${[0, formatQuantity]} t[ooth|eeth]`, 'no teeth');
@@ -48,7 +54,10 @@ describe('simplur', () => {
     assert.equal(simplur`${[3, formatQuantity]} t[ooth|eeth]`, 'teeth');
     assert.equal(simplur`${[4, formatQuantity]} t[ooth|eeth]`, '4 teeth');
 
-    assert.equal(simplur`${[0]} t[ooth|eeth]`, 'teeth');
+    assert.equal(simplur`${[1]} t[ooth|eeth]`, 'tooth');
+    assert.equal(simplur`${[2]} t[ooth|eeth]`, 'teeth');
+    assert.equal(simplur`${[1]} ${'hour'}[|s]`, 'hour');
+    assert.equal(simplur`${[2]} ${'hour'}[|s]`, 'hours');
   });
 
   it('allows one quantity, many tokens', () => {
@@ -58,6 +67,9 @@ describe('simplur', () => {
   });
 
   it('allows many quantities, many tokens', () => {
-    assert.equal(simplur`${1} ca[lf|lves] and ${1} lea[f|ves]`, '1 calf and 1 leaf');
+    assert.equal(
+      simplur`${1} ca[lf|lves] and ${1} lea[f|ves]`,
+      '1 calf and 1 leaf'
+    );
   });
 });

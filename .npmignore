@@ -1,0 +1,7 @@
+.github
+.vscode
+*.test.*
+*.tgz
+README_JS.md
+src
+tsconfig.json
