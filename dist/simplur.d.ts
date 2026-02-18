@@ -1,1 +1,1 @@
-export default function (strings: TemplateStringsArray, ...exps: any[]): string;
+export default function (stringsArg: TemplateStringsArray, ...exps: any[]): string;

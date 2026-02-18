@@ -1,13 +1,14 @@
 import { describe, it } from 'node:test';
 
 import assert from 'assert';
-import simplur from './simplur.ts';
+import simplur from './simplur.js';
 
 describe('simplur', () => {
   it('ignores tokens when no numeric quantity is in scope', () => {
     assert.equal(simplur`hello world`, 'hello world');
     assert.equal(simplur`[hello|world]`, '[hello|world]');
     assert.equal(simplur`${'hello'} [hello|world]`, 'hello [hello|world]');
+    assert.equal(simplur`${'123'} [hello|world]`, '123 [hello|world]');
   });
 
   it('properly pluralizes', () => {
@@ -70,6 +71,13 @@ describe('simplur', () => {
     assert.equal(
       simplur`${1} ca[lf|lves] and ${1} lea[f|ves]`,
       '1 calf and 1 leaf',
+    );
+  });
+
+  it('accepts templatized args', () => {
+    assert.equal(
+      simplur`${1} ${'ca[lf|lves]'} and ${3} ${'lea[f|ves]'}`,
+      '1 calf and 3 leaves',
     );
   });
 });

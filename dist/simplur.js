@@ -1,6 +1,20 @@
-export default function (strings, ...exps) {
+export default function (stringsArg, ...exps) {
+    const strings = [...stringsArg]; // Writable copy of strings
     const result = [];
     const { isArray } = Array;
+    // Inline string expressions (to handle case where a template token may be passed as a quantity)
+    let i = 0;
+    while (i < exps.length) {
+        const exp = exps[i];
+        if (typeof exp == 'string') {
+            strings[i] += exp + strings[i + 1];
+            strings.splice(i + 1, 1);
+            exps.splice(i, 1);
+        }
+        else {
+            i++;
+        }
+    }
     // Convert quantity expressions to [quantity, quantity string] tuples
     exps.forEach((v, i) => {
         if (typeof v == 'number') {

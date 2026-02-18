@@ -6,6 +6,7 @@ describe('simplur', () => {
         assert.equal(simplur `hello world`, 'hello world');
         assert.equal(simplur `[hello|world]`, '[hello|world]');
         assert.equal(simplur `${'hello'} [hello|world]`, 'hello [hello|world]');
+        assert.equal(simplur `${'123'} [hello|world]`, '123 [hello|world]');
     });
     it('properly pluralizes', () => {
         assert.equal(simplur `${0} t[ooth|eeth]`, '0 teeth');
@@ -56,5 +57,8 @@ describe('simplur', () => {
     });
     it('allows many quantities, many tokens', () => {
         assert.equal(simplur `${1} ca[lf|lves] and ${1} lea[f|ves]`, '1 calf and 1 leaf');
+    });
+    it('accepts templatized args', () => {
+        assert.equal(simplur `${1} ${'ca[lf|lves]'} and ${3} ${'lea[f|ves]'}`, '1 calf and 3 leaves');
     });
 });
