@@ -9,8 +9,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "npx --yes --package=typescript tsc",
-    "build:watch": "npx --yes tsc-watch",
+    "build": "tsc",
+    "build:watch": "tsc -w",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run clean && npm run build && npm test",
     "pretest": "npm run build",
