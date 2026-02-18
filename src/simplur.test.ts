@@ -8,6 +8,7 @@ describe('simplur', () => {
     assert.equal(simplur`hello world`, 'hello world');
     assert.equal(simplur`[hello|world]`, '[hello|world]');
     assert.equal(simplur`${'hello'} [hello|world]`, 'hello [hello|world]');
+    assert.equal(simplur`${'123'} [hello|world]`, '123 [hello|world]');
   });
 
   it('properly pluralizes', () => {
@@ -40,12 +41,12 @@ describe('simplur', () => {
       return val < 1
         ? 'no'
         : val == 1
-        ? 'one'
-        : val == 2
-        ? 'both'
-        : val == 3
-        ? null
-        : val;
+          ? 'one'
+          : val == 2
+            ? 'both'
+            : val == 3
+              ? null
+              : val;
     }
 
     assert.equal(simplur`${[0, formatQuantity]} t[ooth|eeth]`, 'no teeth');
@@ -69,7 +70,15 @@ describe('simplur', () => {
   it('allows many quantities, many tokens', () => {
     assert.equal(
       simplur`${1} ca[lf|lves] and ${1} lea[f|ves]`,
-      '1 calf and 1 leaf'
+      '1 calf and 1 leaf',
+    );
+  });
+
+  it('accepts templatized args', () => {
+    const pets = ['hairy dog[|s]', 'lazy cat[|s]', 'wily fox[|es]'];
+    assert.equal(
+      simplur`I love my ${5} ${pets[1]}`,
+      'I love my 5 lazy cats',
     );
   });
 });

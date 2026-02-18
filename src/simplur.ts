@@ -1,6 +1,21 @@
-export default function (strings: TemplateStringsArray, ...exps: any[]) {
+export default function (stringsArg: TemplateStringsArray, ...exps: any[]) {
+  const strings = [...stringsArg]; // Writable copy of strings
   const result = [];
   const { isArray } = Array;
+
+  // Inline template string values into strings array.  This allows callers to
+  // pass pluralization tokens as template string values.
+  let i = 0;
+  while (i < exps.length) {
+    const exp = exps[i];
+    if (typeof exp == 'string') {
+      strings[i] += exp + strings[i + 1];
+      strings.splice(i + 1, 1);
+      exps.splice(i, 1);
+    } else {
+      i++;
+    }
+  }
 
   // Convert quantity expressions to [quantity, quantity string] tuples
   exps.forEach((v, i) => {
@@ -30,7 +45,7 @@ export default function (strings: TemplateStringsArray, ...exps: any[]) {
     // Push current string, pluralizing if we have a valid quantity
     if (quantity) {
       result.push(
-        s.replace(/\[([^|]*)\|([^\]]*)\]/g, quantity[0] == 1 ? '$1' : '$2')
+        s.replace(/\[([^|]*)\|([^\]]*)\]/g, quantity[0] == 1 ? '$1' : '$2'),
       );
     } else {
       result.push(s);
