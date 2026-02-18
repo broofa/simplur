@@ -75,9 +75,16 @@ describe('simplur', () => {
   });
 
   it('accepts templatized args', () => {
+    const pets = ['dog[|s]', 'cat[|s]', 'fox[|es]'];
+
+    const petType = 1;
+    const petCount = 5;
+
+    console.log(simplur`I love my ${petCount} ${pets[petType]}`);
+
     assert.equal(
-      simplur`${1} ${'ca[lf|lves]'} and ${3} ${'lea[f|ves]'}`,
-      '1 calf and 3 leaves',
+      simplur`I love my ${petCount} ${pets[petType]}`,
+      'I love my 5 cats',
     );
   });
 });
