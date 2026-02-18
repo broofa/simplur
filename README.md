@@ -24,6 +24,11 @@ import simplur from 'simplur';
 
 `simplur` is an ES6 [template tag](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals) that formats pluralization tokens based on the quantities injected into the string.
 
+> [!IMPORTANT]
+>
+> Quantities must either be `number`s (simple case) or `Array`s.  Other types will be ignored.
+
+
 ### Simple case
 
 Pluralization tokens have the form "`[singular|plural]`" and are resolved
@@ -73,8 +78,9 @@ simplur`Her ${[3, format]} br[other|ethren] left`; // ⇨ 'Her 3 brethren left'
 
 #### Hiding quantities
 
-Quantities may be hidden by omitting the format function (i.e. just pass value in
-an Array), or by returning `null` or `undefined`.
+Quantities may be hidden by omitting the format function (i.e. just pass the
+value in an `Array`), or by returning `null` or `undefined` from the quantity
+function.
 
 **Note:** _Whitespace immediately following a hidden quantity will be removed._
 
