@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "allowImportingTsExtensions": true,
     "declaration": true,
     "module": "nodenext",
     "moduleResolution": "nodenext",
+    "noEmit": true,
     "outDir": "dist",
     "rootDir": "src",
     "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext"
+    "target": "ESNext",
+    "types": ["node"]
   }
 }
