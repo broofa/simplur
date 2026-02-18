@@ -47,6 +47,16 @@ simplur`There [is|are] ${1} fox[|es] and ${4} octop[us|i]`; // ⇨ 'There is 1 f
 simplur`There [is|are] ${4} fox[|es] and ${1} octop[us|i]`; // ⇨ 'There are 4 foxes and 1 octopus'
 ```
 
+### Tokens as expressions
+`simplur` inlines all `string` template values prior to processing, allowing you
+to pass pluralization tokens as values.
+
+```javascript
+const pets = ['dog[|s]', 'lazy cat[|s]', 'wily fox[|es]'];
+
+simplur`I love my ${3} ${pets[1]}`; // ⇨ 'I love my 3 lazy cats'
+```
+
 ### Custom quantities
 
 Quantity values may be customized using value of the form, `[quantity, format function]`. For example:
@@ -63,7 +73,7 @@ simplur`Her ${[3, format]} br[other|ethren] left`; // ⇨ 'Her 3 brethren left'
 
 #### Hiding quantities
 
-Quantites may be hidden by omitting the format function (i.e. just pass value in
+Quantities may be hidden by omitting the format function (i.e. just pass value in
 an Array), or by returning `null` or `undefined`.
 
 **Note:** _Whitespace immediately following a hidden quantity will be removed._

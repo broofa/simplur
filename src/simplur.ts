@@ -3,7 +3,8 @@ export default function (stringsArg: TemplateStringsArray, ...exps: any[]) {
   const result = [];
   const { isArray } = Array;
 
-  // Inline string expressions (to handle case where a template token may be passed as a quantity)
+  // Inline template string values into strings array.  This allows callers to
+  // pass pluralization tokens as template string values.
   let i = 0;
   while (i < exps.length) {
     const exp = exps[i];
