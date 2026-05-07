@@ -1,6 +1,10 @@
-<!--
-  -- This file is auto-generated from README_js.md. Changes should be made there.
-  -->
+```javascript --run
+runmd.importMap = {
+  imports: {
+    simplur: './src/simplur.ts',
+  },
+};
+```
 
 # Simplur
 
@@ -16,7 +20,7 @@ Simple, versatile string pluralization
 npm i simplur
 ```
 
-```javascript
+```javascript --run
 import simplur from 'simplur';
 ```
 
@@ -34,21 +38,21 @@ Pluralization tokens have the form "`[singular|plural]`" and are resolved
 using the first expression found to the left of each token or, if no
 left-expression is available, the first expression to the right.
 
-```javascript
-simplur`I have ${1} kitt[en|ies]`; // ⇨ 'I have 1 kitten'
-simplur`I have ${3} kitt[en|ies]`; // ⇨ 'I have 3 kitties'
+```javascript --run
+simplur`I have ${1} kitt[en|ies]`; // RESULT
+simplur`I have ${3} kitt[en|ies]`; // RESULT
 
-simplur`There [is|are] ${1} m[an|en]`; // ⇨ 'There is 1 man'
-simplur`There [is|are] ${5} m[an|en]`; // ⇨ 'There are 5 men'
+simplur`There [is|are] ${1} m[an|en]`; // RESULT
+simplur`There [is|are] ${5} m[an|en]`; // RESULT
 ```
 
 ### Multiple tokens
 
 Multiple tokens and quantities are allowed. These follow the same rules as above.
 
-```javascript
-simplur`There [is|are] ${1} fox[|es] and ${4} octop[us|i]`; // ⇨ 'There is 1 fox and 4 octopi'
-simplur`There [is|are] ${4} fox[|es] and ${1} octop[us|i]`; // ⇨ 'There are 4 foxes and 1 octopus'
+```javascript --run
+simplur`There [is|are] ${1} fox[|es] and ${4} octop[us|i]`; // RESULT
+simplur`There [is|are] ${4} fox[|es] and ${1} octop[us|i]`; // RESULT
 ```
 
 ### Tokens as expressions
@@ -56,24 +60,24 @@ simplur`There [is|are] ${4} fox[|es] and ${1} octop[us|i]`; // ⇨ 'There are 4 
 `simplur` inlines all `string` template values prior to processing, allowing you
 to pass pluralization tokens as values.
 
-```javascript
+```javascript --run
 const pets = ['dog[|s]', 'lazy cat[|s]', 'wily fox[|es]'];
 
-simplur`I love my ${3} ${pets[1]}`; // ⇨ 'I love my 3 lazy cats'
+simplur`I love my ${3} ${pets[1]}`; // RESULT
 ```
 
 ### Custom quantities
 
 Quantity values may be customized using value of the form, `[quantity, format function]`. For example:
 
-```javascript
+```javascript --run
 function format(qty) {
   return qty == 1 ? 'sole' : qty == 2 ? 'twin' : qty;
 }
 
-simplur`Her ${[1, format]} br[other|ethren] left`; // ⇨ 'Her sole brother left'
-simplur`Her ${[2, format]} br[other|ethren] left`; // ⇨ 'Her twin brethren left'
-simplur`Her ${[3, format]} br[other|ethren] left`; // ⇨ 'Her 3 brethren left'
+simplur`Her ${[1, format]} br[other|ethren] left`; // RESULT
+simplur`Her ${[2, format]} br[other|ethren] left`; // RESULT
+simplur`Her ${[3, format]} br[other|ethren] left`; // RESULT
 ```
 
 #### Hiding quantities
@@ -84,18 +88,14 @@ function.
 
 **Note:** _Whitespace immediately following a hidden quantity will be removed._
 
-```javascript
-simplur`${[1]} gen[us|era]`; // ⇨ 'genus'
-simplur`${[2]} gen[us|era]`; // ⇨ 'genera'
+```javascript --run
+simplur`${[1]} gen[us|era]`; // RESULT
+simplur`${[2]} gen[us|era]`; // RESULT
 
 function hideSingular(qty) {
   return qty == 1 ? null : qty;
 }
 
-simplur`Delete the ${[1, hideSingular]} cact[us|i]?`; // ⇨ 'Delete the cactus?'
-simplur`Delete the ${[2, hideSingular]} cact[us|i]?`; // ⇨ 'Delete the 2 cacti?'
+simplur`Delete the ${[1, hideSingular]} cact[us|i]?`; // RESULT
+simplur`Delete the ${[2, hideSingular]} cact[us|i]?`; // RESULT
 ```
-
-
----
-Generated from [README_js.md](README_js.md) by [`runmd`](https://github.com/broofa/runmd)

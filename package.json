@@ -10,6 +10,8 @@
   },
   "scripts": {
     "build": "rm -rf dist && tsc",
+    "docs": "runmd --check README_js.md -o README.md",
+    "docs:fix": "runmd README_js.md -o README.md",
     "lint": "biome check",
     "lint:fix": "biome check --write",
     "pretest": "npm run build",
@@ -48,10 +50,9 @@
     "@biomejs/biome": "2.4.14",
     "@commitlint/config-conventional": "20.5.3",
     "@types/node": "25.2.3",
+    "commitlint": "20.5.3",
     "lefthook": "2.1.6",
+    "runmd": "2.1.1",
     "typescript": "5.9.3"
-  },
-  "dependencies": {
-    "commitlint": "20.5.3"
   }
 }
