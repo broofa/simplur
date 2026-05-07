@@ -23,6 +23,11 @@
     "type": "git",
     "url": "git+https://github.com/broofa/simplur.git"
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "keywords": [
     "pluralize",
     "pluralise",
@@ -40,7 +45,12 @@
   "packageManager": "npm@10.5.2+sha256.df0a1f7691654b94786013e5d5b80a873a7ffbae9c82c3bec8b5db76bc3b7dfd",
   "devDependencies": {
     "@biomejs/biome": "2.4.14",
+    "@commitlint/config-conventional": "20.5.3",
     "@types/node": "25.2.3",
+    "lefthook": "2.1.6",
     "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "commitlint": "20.5.3"
   }
 }
