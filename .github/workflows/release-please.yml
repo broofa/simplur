@@ -31,20 +31,17 @@ jobs:
       # Steps below handle publication to npm with provenance attestation.
       - uses: actions/checkout@v4
         if: ${{ steps.release.outputs.release_created }}
+
       - uses: actions/setup-node@v4
         if: ${{ steps.release.outputs.release_created }}
         with:
           node-version: 24
           registry-url: 'https://registry.npmjs.org'
 
-      - run: npm ci
-        if: ${{ steps.release.outputs.release_created }}
-
-      - run: npm test
-        if: ${{ steps.release.outputs.release_created }}
-
       - name: Publish to npm
         if: ${{ steps.release.outputs.release_created }}
+        run: npm ci
+        run: npm test
         run: |
           if [[ "$GITHUB_REF_NAME" == "main" ]]; then
             npm publish --provenance

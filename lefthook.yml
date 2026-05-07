@@ -3,6 +3,11 @@ commit-msg:
     commitlint:
       run: npx commitlint --edit {1}
 
+'lint':
+  commands:
+    lint:
+      run: npm run lint
+
 pre-commit:
   commands:
     test:

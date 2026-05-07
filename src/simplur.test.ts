@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 import { describe, it } from 'node:test';
-import simplur from './simplur.js';
+import simplur from './simplur.ts';
 
 describe('simplur', () => {
   it('ignores tokens when no numeric quantity is in scope', () => {
