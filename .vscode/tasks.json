@@ -16,14 +16,14 @@
       "type": "shell",
       "command": "npm run test:watch",
       "windows": {
-        "command": "npm run test:watch",
+        "command": "npm run test:watch"
       },
       "presentation": {
         "reveal": "always",
         "panel": "new"
       },
       "runOptions": {
-        "runOn": "folderOpen",
+        "runOn": "folderOpen"
       }
     }
   ]

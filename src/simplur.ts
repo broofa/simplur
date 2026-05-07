@@ -1,4 +1,4 @@
-export default function (stringsArg: TemplateStringsArray, ...exps: any[]) {
+export default function (stringsArg: TemplateStringsArray, ...exps: unknown[]) {
   const strings = [...stringsArg]; // Writable copy of strings
   const result = [];
   const { isArray } = Array;
@@ -8,7 +8,7 @@ export default function (stringsArg: TemplateStringsArray, ...exps: any[]) {
   let i = 0;
   while (i < exps.length) {
     const exp = exps[i];
-    if (typeof exp == 'string') {
+    if (typeof exp === 'string') {
       strings[i] += exp + strings[i + 1];
       strings.splice(i + 1, 1);
       exps.splice(i, 1);
@@ -19,11 +19,11 @@ export default function (stringsArg: TemplateStringsArray, ...exps: any[]) {
 
   // Convert quantity expressions to [quantity, quantity string] tuples
   exps.forEach((v, i) => {
-    if (typeof v == 'number') {
+    if (typeof v === 'number') {
       exps[i] = [v, v];
     } else if (isArray(v)) {
-      if (typeof v[0] == 'number') {
-        exps[i] = [v[0], typeof v[1] == 'function' ? v[1](v[0]) : null];
+      if (typeof v[0] === 'number') {
+        exps[i] = [v[0], typeof v[1] === 'function' ? v[1](v[0]) : null];
       } else {
         // Edge case where the caller injects an Array but doesn't intend for it
         // to be treated as a quantity.  Not worth solving at present.
@@ -34,7 +34,7 @@ export default function (stringsArg: TemplateStringsArray, ...exps: any[]) {
 
   // Initialize the quantity to use for pluralization
   let quantity = exps.find(isArray);
-  let last;
+  let last: unknown;
 
   for (let s of strings) {
     // Trim leading whitespace hidden quantities
@@ -45,7 +45,7 @@ export default function (stringsArg: TemplateStringsArray, ...exps: any[]) {
     // Push current string, pluralizing if we have a valid quantity
     if (quantity) {
       result.push(
-        s.replace(/\[([^|]*)\|([^\]]*)\]/g, quantity[0] == 1 ? '$1' : '$2'),
+        s.replace(/\[([^|]*)\|([^\]]*)\]/g, quantity[0] === 1 ? '$1' : '$2')
       );
     } else {
       result.push(s);
