@@ -40,9 +40,9 @@ jobs:
 
       - name: Publish to npm
         if: ${{ steps.release.outputs.release_created }}
-        run: npm ci
-        run: npm test
         run: |
+          npm ci
+          npm test
           if [[ "$GITHUB_REF_NAME" == "main" ]]; then
             npm publish --provenance
           else
