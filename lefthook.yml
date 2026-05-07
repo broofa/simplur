@@ -3,12 +3,15 @@ commit-msg:
     commitlint:
       run: npx commitlint --edit {1}
 
-'lint':
-  commands:
-    lint:
-      run: npm run lint
-
 pre-commit:
   commands:
+    docs:
+      run: npm run docs
+      fail_text: run `npm docs:fix` to update documentation
+
     test:
       run: npm test
+
+    lint:
+      run: npm run lint
+      fail_text: run `npm lint:fix` to fix linting issues
