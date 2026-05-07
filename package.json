@@ -12,6 +12,8 @@
     "build": "tsc",
     "build:watch": "tsc -w",
     "clean": "rm -rf dist",
+    "lint": "biome check",
+    "lint:fix": "biome check --write",
     "prepublishOnly": "npm run clean && npm run build && npm test",
     "pretest": "npm run build",
     "test": "node --test dist/**/*.test.js",
@@ -37,6 +39,7 @@
   "license": "ISC",
   "packageManager": "npm@10.5.2+sha256.df0a1f7691654b94786013e5d5b80a873a7ffbae9c82c3bec8b5db76bc3b7dfd",
   "devDependencies": {
+    "@biomejs/biome": "2.4.14",
     "@types/node": "25.2.3",
     "typescript": "5.9.3"
   }
