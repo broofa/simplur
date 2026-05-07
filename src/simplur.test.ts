@@ -1,7 +1,6 @@
+import assert from 'node:assert';
 import { describe, it } from 'node:test';
-
-import assert from 'assert';
-import simplur from './simplur.js';
+import simplur from './simplur.ts';
 
 describe('simplur', () => {
   it('ignores tokens when no numeric quantity is in scope', () => {
@@ -40,11 +39,11 @@ describe('simplur', () => {
     function formatQuantity(val: number) {
       return val < 1
         ? 'no'
-        : val == 1
+        : val === 1
           ? 'one'
-          : val == 2
+          : val === 2
             ? 'both'
-            : val == 3
+            : val === 3
               ? null
               : val;
     }
@@ -70,15 +69,12 @@ describe('simplur', () => {
   it('allows many quantities, many tokens', () => {
     assert.equal(
       simplur`${1} ca[lf|lves] and ${1} lea[f|ves]`,
-      '1 calf and 1 leaf',
+      '1 calf and 1 leaf'
     );
   });
 
   it('accepts templatized args', () => {
     const pets = ['hairy dog[|s]', 'lazy cat[|s]', 'wily fox[|es]'];
-    assert.equal(
-      simplur`I love my ${5} ${pets[1]}`,
-      'I love my 5 lazy cats',
-    );
+    assert.equal(simplur`I love my ${5} ${pets[1]}`, 'I love my 5 lazy cats');
   });
 });

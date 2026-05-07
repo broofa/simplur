@@ -1,0 +1,50 @@
+# Relevant docs:
+# - https://github.com/googleapis/release-please
+# - https://github.com/googleapis/release-please-action
+
+name: release-please
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - '*.x'
+
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          target-branch: ${{ github.ref_name }}
+          versioning-strategy: ${{ endsWith(github.ref_name, '.x') && 'always-bump-patch' || 'default' }}
+
+      # Steps below handle publication to npm with provenance attestation.
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+
+      - uses: actions/setup-node@v4
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish to npm
+        if: ${{ steps.release.outputs.release_created }}
+        run: npm ci
+        run: npm test
+        run: |
+          if [[ "$GITHUB_REF_NAME" == "main" ]]; then
+            npm publish --provenance
+          else
+            npm publish --provenance --tag "legacy-${GITHUB_REF_NAME%%.x}"
+          fi
