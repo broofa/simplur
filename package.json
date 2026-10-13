@@ -45,14 +45,14 @@
     "email": "robert@broofa.com"
   },
   "license": "ISC",
-  "packageManager": "npm@10.5.2+sha256.df0a1f7691654b94786013e5d5b80a873a7ffbae9c82c3bec8b5db76bc3b7dfd",
+  "packageManager": "npm@12.2.0",
   "devDependencies": {
-    "@biomejs/biome": "2.4.14",
-    "@commitlint/config-conventional": "20.5.3",
-    "@types/node": "25.2.3",
-    "commitlint": "20.5.3",
-    "lefthook": "2.1.6",
+    "@biomejs/biome": "2.5.15",
+    "@commitlint/config-conventional": "21.2.3",
+    "@types/node": "26.6.5",
+    "commitlint": "21.2.3",
+    "lefthook": "2.2.2",
     "runmd": "2.1.1",
-    "typescript": "5.9.3"
+    "typescript": "7.0.2"
   }
 }
