@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented in this file.
 
+## [4.1.2](https://github.com/broofa/simplur/compare/v4.1.1...v4.1.2) (2026-10-13)
+
+
+### Bug Fixes
+
+* remove commitlint dependency ([0522c4c](https://github.com/broofa/simplur/commit/0522c4ca02c1b6e76d115e357083efd61f7b3700))
+* remove commitlint dependency ([#10](https://github.com/broofa/simplur/issues/10)) ([ca172d8](https://github.com/broofa/simplur/commit/ca172d8aaec69008ca03ee883ff1afd34eb36854))
+
 ## [4.1.1](https://github.com/broofa/simplur/compare/v4.1.0...v4.1.1) (2026-05-07)
 
 
