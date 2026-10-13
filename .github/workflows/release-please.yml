@@ -31,27 +31,22 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          target-branch: ${{ github.ref_name }}
-          versioning-strategy: ${{ endsWith(github.ref_name, '.x') && 'always-bump-patch' || 'default' }}
 
-      # Steps below handle publication to npm with provenance attestation.
-      - uses: actions/checkout@v4
-        if: ${{ steps.release.outputs.release_created }}
-
-      - uses: actions/setup-node@v4
-        if: ${{ steps.release.outputs.release_created }}
+      # Steps below handle publication to NPM
+      - uses: actions/checkout@v7
+        if: ${{ steps.release.outputs.release_created || inputs.release_created }}
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           registry-url: 'https://registry.npmjs.org'
+        if: ${{ steps.release.outputs.release_created || inputs.release_created }}
 
-      - name: Publish to npm
-        if: ${{ steps.release.outputs.release_created }}
+      - name: Verify release
+        if: ${{ steps.release.outputs.release_created || inputs.release_created }}
         run: |
           npm ci
           npm run docs
           npm test
-          if [[ "$GITHUB_REF_NAME" == "main" ]]; then
-            npm publish --provenance
-          else
-            npm publish --provenance --tag "legacy-${GITHUB_REF_NAME%%.x}"
-          fi
+      - run: npm publish --provenance --access public
+
+        if: ${{ steps.release.outputs.release_created || inputs.release_created }}
