@@ -6,6 +6,13 @@ name: release-please
 
 on:
   workflow_dispatch:
+    inputs:
+      release_created:
+        description: Publish even when Release Please did not create a release
+        type: boolean
+        required: false
+        default: false
+
   push:
     branches:
       - main
@@ -41,7 +48,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         run: |
           npm ci
-          npm docs
+          npm run docs
           npm test
           if [[ "$GITHUB_REF_NAME" == "main" ]]; then
             npm publish --provenance
